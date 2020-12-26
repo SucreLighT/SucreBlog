@@ -1,0 +1,17 @@
+server:
+  port: 28082
+
+# thymeleaf配置
+spring:
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  # 静态资源相关路径配置
+  mvc:
+    static-path-pattern: /**
+  web:
+    resources:
+      static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
