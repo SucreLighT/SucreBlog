@@ -15,3 +15,15 @@ spring:
   web:
     resources:
       static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/my_blog_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT
+    username: root
+    password: 123456
+
+mybatis:
+#  config-location: classpath:mybatis-config.xml # 配置 MyBatis 配置文件路径
+  mapper-locations: classpath:mapper/*.xml # 配置 Mapper XML 地址
+  type-aliases-package: cn.sucrelt.sucreblog.entity # 配置数据库实体包路径
+  configuration:
+    map-underscore-to-camel-case: true
