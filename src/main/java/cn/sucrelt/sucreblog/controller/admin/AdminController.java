@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -25,6 +26,13 @@ public class AdminController {
 
     @Resource
     private AdminUserService adminUserService;
+
+    @GetMapping({"", "/", "index", "/index.html"})
+    public String index(HttpServletRequest request) {
+        request.setAttribute("path", "index");
+
+        return "admin/index";
+    }
 
     /**
      * Get方式请求登录的方法，不执行登录逻辑，直接返回登录界面
@@ -53,7 +61,7 @@ public class AdminController {
                         @RequestParam("password") String password,
                         @RequestParam("verifyCode") String verifyCode,
                         HttpSession session) {
-        session.setAttribute("errorMsg","");
+        session.setAttribute("errorMsg", "");
         //1.信息校验
         if (!StringUtils.hasLength(verifyCode)) {
             session.setAttribute("errorMsg", "验证码不能为空！");
