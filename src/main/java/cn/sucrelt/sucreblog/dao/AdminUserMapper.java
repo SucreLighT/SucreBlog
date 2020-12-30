@@ -20,4 +20,20 @@ public interface AdminUserMapper {
      * @return
      */
     AdminUser login(@Param("userName") String userName, @Param("password") String password);
+
+    /**
+     * 根据id查询用户
+     *
+     * @param adminUserId
+     * @return
+     */
+    AdminUser selectById(Integer adminUserId);
+
+    /**
+     * 根据id检索并更新用户信息
+     *
+     * @param adminUser
+     * @return
+     */
+    int updateByIdSelective(AdminUser adminUser);
 }

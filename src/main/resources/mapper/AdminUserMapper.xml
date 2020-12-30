@@ -14,12 +14,42 @@
         admin_user_id, login_user_name, login_password, nick_name, locked
     </sql>
 
+    <!--登录-->
     <select id="login" resultMap="BaseResultMap">
-        select
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_admin_user
-        where login_user_name = #{userName,jdbcType=VARCHAR} AND login_password=#{password,jdbcType=VARCHAR} AND locked
-        = 0
+        FROM tb_admin_user
+        WHERE login_user_name = #{userName,jdbcType=VARCHAR}
+        AND login_password=#{password,jdbcType=VARCHAR}
+        AND locked = 0
     </select>
+
+    <!--根据id查询用户信息-->
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_admin_user
+        WHERE admin_user_id = #{adminUserId,jdbcType=INTEGER}
+    </select>
+
+    <!--根据id更新用户信息-->
+    <update id="updateByIdSelective" parameterType="cn.sucrelt.sucreblog.entity.AdminUser">
+        UPDATE tb_admin_user
+        <set>
+            <if test="loginUserName != null">
+                login_user_name = #{loginUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                login_password = #{loginPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="locked != null">
+                locked = #{locked,jdbcType=TINYINT},
+            </if>
+        </set>
+        WHERE admin_user_id = #{adminUserId,jdbcType=INTEGER}
+    </update>
 
 </mapper>

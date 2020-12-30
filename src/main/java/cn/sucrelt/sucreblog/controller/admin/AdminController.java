@@ -4,10 +4,7 @@ import cn.sucrelt.sucreblog.entity.AdminUser;
 import cn.sucrelt.sucreblog.service.AdminUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +24,12 @@ public class AdminController {
     @Resource
     private AdminUserService adminUserService;
 
+    /**
+     * 请求首页的方法
+     *
+     * @param request
+     * @return
+     */
     @GetMapping({"", "/", "index", "/index.html"})
     public String index(HttpServletRequest request) {
         request.setAttribute("path", "index");
@@ -89,5 +92,76 @@ public class AdminController {
             session.setAttribute("errorMsg", "登陆失败！");
             return "admin/login";
         }
+    }
+
+    /**
+     * Get方式请求profile界面的方法，该界面用于修改密码和用户名
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/profile")
+    public String profile(HttpServletRequest request) {
+        Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
+        AdminUser adminUser = adminUserService.getUserById(loginUserId);
+
+        if (adminUser == null) {
+            return "admin/login";
+        }
+
+        request.setAttribute("path", "profile");
+        request.setAttribute("loginUserName", adminUser.getLoginUserName());
+        request.setAttribute("nickName", adminUser.getNickName());
+        return "admin/profile";
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param request
+     * @param originalPassword
+     * @param newPassword
+     * @return
+     */
+    @PostMapping("/profile/password")
+    @ResponseBody
+    public String updatePassword(HttpServletRequest request, @RequestParam("originalPassword") String originalPassword,
+                                 @RequestParam("newPassword") String newPassword) {
+        if (StringUtils.isEmpty(originalPassword) || StringUtils.isEmpty(newPassword)) {
+            return "参数不能为空";
+        }
+        Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
+        if (adminUserService.updatePassword(loginUserId, originalPassword, newPassword)) {
+            //修改成功后清空session中的数据，前端控制跳转至登录页
+            request.getSession().removeAttribute("loginUserId");
+            request.getSession().removeAttribute("loginUser");
+            request.getSession().removeAttribute("errorMsg");
+            return "success";
+        } else {
+            return "修改失败";
+        }
+    }
+
+    @PostMapping("/profile/name")
+    @ResponseBody
+    public String updateUserName(HttpServletRequest request, @RequestParam("loginUserName") String loginUserName,
+                                 @RequestParam("nickName") String nickName) {
+        if (StringUtils.isEmpty(loginUserName) || StringUtils.isEmpty(nickName)) {
+            return "参数不能为空";
+        }
+        Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
+        if (adminUserService.updateUserName(loginUserId, loginUserName, nickName)) {
+            return "success";
+        } else {
+            return "修改失败";
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("loginUserId");
+        request.getSession().removeAttribute("loginUser");
+        request.getSession().removeAttribute("errorMsg");
+        return "admin/login";
     }
 }
