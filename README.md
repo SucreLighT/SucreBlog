@@ -8,7 +8,7 @@
 
 + 整体功能如下图：
 
-  :scroll:**TODO：**此处一个思维导图（参考艿艿的商城项目）
+  :scroll: **TODO：**此处一个思维导图（参考艿艿的商城项目）
 
 
 
@@ -99,7 +99,7 @@
 # 模块开发文档
 
 + 数据库建立及环境搭建
-+ 用户管理模块
++ [用户管理模块](https://github.com/tangtangsama/SucreBlog/blob/master/docs/admin.md)
 + 
 
 
