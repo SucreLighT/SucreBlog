@@ -1,7 +1,5 @@
 package cn.sucrelt.sucreblog.util;
 
-import org.springframework.util.StringUtils;
-
 /**
  * @description: 生成响应结果的工具类，用于生成Result对象
  * @author: sucre
@@ -39,7 +37,7 @@ public class ResultGenerator {
     public static Result generateFailureResult(String message) {
         Result result = new Result();
         result.setResultCode(DEFAULT_FAILURE_CODE);
-        if (!StringUtils.hasLength(message)) {
+        if (message.isEmpty()) {
             result.setMessage(DEFAULT_FAILURE_MESSAGE);
         } else {
             result.setMessage(message);

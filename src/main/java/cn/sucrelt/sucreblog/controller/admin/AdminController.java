@@ -3,7 +3,6 @@ package cn.sucrelt.sucreblog.controller.admin;
 import cn.sucrelt.sucreblog.entity.AdminUser;
 import cn.sucrelt.sucreblog.service.AdminUserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -66,16 +65,16 @@ public class AdminController {
                         HttpSession session) {
         session.setAttribute("errorMsg", "");
         //1.信息校验
-        if (!StringUtils.hasLength(verifyCode)) {
+        if (verifyCode.isEmpty()) {
             session.setAttribute("errorMsg", "验证码不能为空！");
             return "admin/login";
         }
-        if (!StringUtils.hasLength(userName) || !StringUtils.hasLength(password)) {
+        if (userName.isEmpty() || password.isEmpty()) {
             session.setAttribute("errorMsg", "用户名或密码不能为空！");
             return "admin/login";
         }
         String kaptchaCode = session.getAttribute("verifyCode") + "";
-        if (!StringUtils.hasLength(kaptchaCode) || !verifyCode.equals(kaptchaCode)) {
+        if (kaptchaCode.isEmpty() || kaptchaCode.isEmpty()) {
             session.setAttribute("errorMsg", "验证码错误！");
             return "admin/login";
         }
@@ -127,7 +126,7 @@ public class AdminController {
     @ResponseBody
     public String updatePassword(HttpServletRequest request, @RequestParam("originalPassword") String originalPassword,
                                  @RequestParam("newPassword") String newPassword) {
-        if (StringUtils.isEmpty(originalPassword) || StringUtils.isEmpty(newPassword)) {
+        if (originalPassword.isEmpty() || newPassword.isEmpty()) {
             return "参数不能为空";
         }
         Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
@@ -146,7 +145,7 @@ public class AdminController {
     @ResponseBody
     public String updateUserName(HttpServletRequest request, @RequestParam("loginUserName") String loginUserName,
                                  @RequestParam("nickName") String nickName) {
-        if (StringUtils.isEmpty(loginUserName) || StringUtils.isEmpty(nickName)) {
+        if (loginUserName.isEmpty() || nickName.isEmpty()) {
             return "参数不能为空";
         }
         Integer loginUserId = (int) request.getSession().getAttribute("loginUserId");
