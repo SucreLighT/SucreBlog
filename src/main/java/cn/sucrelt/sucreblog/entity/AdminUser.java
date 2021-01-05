@@ -12,22 +12,37 @@ import lombok.Setter;
 
 
 public class AdminUser {
+    /**
+     * 管理员id
+     */
     @Getter
     @Setter
     private Integer adminUserId;
 
+    /**
+     * 管理员登录名
+     */
     @Getter
     @Setter
     private String loginUserName;
 
+    /**
+     * 管理员登录密码
+     */
     @Getter
     @Setter
     private String loginPassword;
 
+    /**
+     * 管理员登录密码
+     */
     @Getter
     @Setter
     private String nickName;
 
+    /**
+     * 账号是否锁定 1为锁定0为未锁定 锁定后无法登录
+     */
     @Getter
     @Setter
     private Byte locked;
