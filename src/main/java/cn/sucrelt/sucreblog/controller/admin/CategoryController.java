@@ -48,10 +48,10 @@ public class CategoryController {
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         if (params.get("page") == null || params.get("limit") == null) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.generateFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(categoryService.getBlogCategoryPage(pageUtil));
+        return ResultGenerator.generateSuccessResult(categoryService.getBlogCategoryPage(pageUtil));
     }
 
 
@@ -67,15 +67,15 @@ public class CategoryController {
     public Result addCategory(@RequestParam("categoryName") String categoryName,
                               @RequestParam("categoryIcon") String categoryIcon) {
         if (categoryName.isEmpty()) {
-            return ResultGenerator.genFailResult("请输入分类名称！");
+            return ResultGenerator.generateFailResult("请输入分类名称！");
         }
         if (categoryIcon.isEmpty()) {
-            return ResultGenerator.genFailResult("请选择分类图标！");
+            return ResultGenerator.generateFailResult("请选择分类图标！");
         }
         if (categoryService.addCategory(categoryName, categoryIcon)) {
-            return ResultGenerator.genSuccessResult();
+            return ResultGenerator.generateSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("添加失败，分类名已存在！");
+            return ResultGenerator.generateFailResult("添加失败，分类名已存在！");
         }
     }
 
@@ -94,15 +94,15 @@ public class CategoryController {
                                  @RequestParam("categoryName") String categoryName,
                                  @RequestParam("categoryIcon") String categoryIcon) {
         if (categoryName.isEmpty()) {
-            return ResultGenerator.genFailResult("请输入分类名称！");
+            return ResultGenerator.generateFailResult("请输入分类名称！");
         }
         if (categoryIcon.isEmpty()) {
-            return ResultGenerator.genFailResult("请选择分类图标！");
+            return ResultGenerator.generateFailResult("请选择分类图标！");
         }
         if (categoryService.updateCategory(categoryId, categoryName, categoryIcon)) {
-            return ResultGenerator.genSuccessResult();
+            return ResultGenerator.generateSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("修改失败，分类名已存在！");
+            return ResultGenerator.generateFailResult("修改失败，分类名已存在！");
         }
     }
 
@@ -117,12 +117,12 @@ public class CategoryController {
     @ResponseBody
     public Result deleteCategories(@RequestBody Integer[] ids) {
         if (ids.length < 1) {
-            return ResultGenerator.genFailResult("参数异常！");
+            return ResultGenerator.generateFailResult("参数异常！");
         }
         if (categoryService.deleteCategories(ids)) {
-            return ResultGenerator.genSuccessResult();
+            return ResultGenerator.generateSuccessResult();
         } else {
-            return ResultGenerator.genFailResult("删除失败！");
+            return ResultGenerator.generateFailResult("删除失败！");
         }
     }
 }
