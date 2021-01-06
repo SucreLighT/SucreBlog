@@ -8,33 +8,33 @@ package cn.sucrelt.sucreblog.util;
  */
 public class ResultGenerator {
     private static final String DEFAULT_SUCCESS_MESSAGE = "SUCCESS";
-    private static final String DEFAULT_FAILURE_MESSAGE = "FAILURE";
+    private static final String DEFAULT_FAILURE_MESSAGE = "FAIL";
     private static final int DEFAULT_SUCCESS_CODE = 200;
     private static final int DEFAULT_FAILURE_CODE = 500;
 
     public static Result generateSuccessResult() {
         Result result = new Result();
-        result.setMessage(DEFAULT_SUCCESS_MESSAGE);
         result.setResultCode(DEFAULT_SUCCESS_CODE);
+        result.setMessage(DEFAULT_SUCCESS_MESSAGE);
         return result;
     }
 
     public static Result generateSuccessResult(String message) {
         Result result = new Result();
-        result.setMessage(message);
         result.setResultCode(DEFAULT_SUCCESS_CODE);
+        result.setMessage(message);
         return result;
     }
 
     public static Result generateSuccessResult(Object data) {
         Result result = new Result();
-        result.setMessage(DEFAULT_SUCCESS_MESSAGE);
         result.setResultCode(DEFAULT_SUCCESS_CODE);
+        result.setMessage(DEFAULT_SUCCESS_MESSAGE);
         result.setData(data);
         return result;
     }
 
-    public static Result generateFailureResult(String message) {
+    public static Result generateFailResult(String message) {
         Result result = new Result();
         result.setResultCode(DEFAULT_FAILURE_CODE);
         if (message.isEmpty()) {
@@ -45,7 +45,7 @@ public class ResultGenerator {
         return result;
     }
 
-    public static Result generateFailureResult(int code, String message) {
+    public static Result generateErrorResult(int code, String message) {
         Result result = new Result();
         result.setResultCode(code);
         result.setMessage(message);

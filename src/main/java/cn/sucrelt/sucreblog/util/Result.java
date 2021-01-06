@@ -16,22 +16,20 @@ public class Result<T> implements Serializable {
     /**
      * 响应码
      */
-    @Setter
     @Getter
+    @Setter
     private int resultCode;
-
     /**
      * 响应信息
      */
-    @Setter
     @Getter
+    @Setter
     private String message;
-
     /**
      * 响应数据
      */
-    @Setter
     @Getter
+    @Setter
     private T data;
 
     public Result() {
@@ -41,6 +39,7 @@ public class Result<T> implements Serializable {
         this.resultCode = resultCode;
         this.message = message;
     }
+
 
     @Override
     public String toString() {
