@@ -5,10 +5,10 @@ import cn.sucrelt.sucreblog.entity.Category;
 import cn.sucrelt.sucreblog.service.CategoryService;
 import cn.sucrelt.sucreblog.util.PageQueryUtil;
 import cn.sucrelt.sucreblog.util.PageResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -21,22 +21,27 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
+    @Resource
     private CategoryMapper categoryMapper;
 
-    @Override
-    public PageResult getCategoryPage(PageQueryUtil pageQueryUtil) {
-        List<Category> categoryList = categoryMapper.getCategoryList(pageQueryUtil);
-        int total = categoryMapper.getTotalCategories(pageQueryUtil);
 
-        PageResult pageResult = new PageResult(categoryList, total, pageQueryUtil.getLimit(), pageQueryUtil.getPage());
+    @Override
+    public PageResult getBlogCategoryPage(PageQueryUtil PageQueryUtil) {
+        List<Category> categoryList = categoryMapper.getCategoryList(PageQueryUtil);
+        int total = categoryMapper.getTotalCategories(PageQueryUtil);
+        PageResult pageResult = new PageResult(categoryList, total, PageQueryUtil.getLimit(), PageQueryUtil.getPage());
         return pageResult;
     }
 
     @Override
-    public boolean addCategory(String categoryName, String categoryIcon) {
-        Category category = categoryMapper.selectByCategoryName(categoryName);
-        if (category == null) {
+    public int getTotalCategories() {
+        return categoryMapper.getTotalCategories(null);
+    }
+
+    @Override
+    public Boolean addCategory(String categoryName, String categoryIcon) {
+        Category tempCategory = categoryMapper.selectByCategoryName(categoryName);
+        if (tempCategory == null) {
             Category newCategory = new Category();
             newCategory.setCategoryName(categoryName);
             newCategory.setCategoryIcon(categoryIcon);
@@ -46,14 +51,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean updateCategory(Integer categoryId, String categoryName, String categoryIcon) {
+    @Transactional
+    public Boolean updateCategory(Integer categoryId, String categoryName, String categoryIcon) {
         Category category = categoryMapper.selectByCategoryId(categoryId);
         if (category != null) {
-            category.setCategoryName(categoryName);
             category.setCategoryIcon(categoryIcon);
-
-            //博客的分类属性同步修改
+            category.setCategoryName(categoryName);
+            //更新blog实体中的分类属性
             // blogMapper.updateBlogCategorys(categoryName, blogCategory.getCategoryId(), new Integer[]{categoryId});
             return categoryMapper.updateByCategoryIdSelective(category) > 0;
         }
@@ -61,14 +65,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean deleteCategories(Integer[] ids) {
+    @Transactional
+    public Boolean deleteCategories(Integer[] ids) {
         if (ids.length < 1) {
             return false;
         }
-        //修改tb_blog表
+        //更新blog实体中的分类属性
         // blogMapper.updateBlogCategorys("默认分类", 0, ids);
-        //删除分类数据
         return categoryMapper.deleteCategories(ids) > 0;
     }
 }

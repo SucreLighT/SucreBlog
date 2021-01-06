@@ -12,25 +12,24 @@ import java.util.List;
  * @time: 14:14
  */
 public interface CategoryMapper {
-
     /**
      * 获取分类的分页数据
      *
-     * @param pageQueryUtil
+     * @param PageQueryUtil
      * @return
      */
-    List<Category> getCategoryList(PageQueryUtil pageQueryUtil);
+    List<Category> getCategoryList(PageQueryUtil PageQueryUtil);
 
     /**
-     * 获取分类总数
+     * 获取所有的分类数
      *
-     * @param pageQueryUtil
+     * @param PageQueryUtil
      * @return
      */
-    int getTotalCategories(PageQueryUtil pageQueryUtil);
+    int getTotalCategories(PageQueryUtil PageQueryUtil);
 
     /**
-     * 根据分类id查询分类数据
+     * 根据分类id查询分类对象
      *
      * @param categoryId
      * @return
@@ -38,7 +37,7 @@ public interface CategoryMapper {
     Category selectByCategoryId(Integer categoryId);
 
     /**
-     * 根据分类名称查询分类对象
+     * 根据分类名查询分类对象
      *
      * @param categoryName
      * @return
@@ -48,15 +47,15 @@ public interface CategoryMapper {
     /**
      * 选择性插入分类数据
      *
-     * @param category
+     * @param record
      * @return
      */
     int insertSelective(Category category);
 
     /**
-     * 选择性根据分类id更新分类数据
+     * 根据分类id选择更新分类数据
      *
-     * @param category
+     * @param record
      * @return
      */
     int updateByCategoryIdSelective(Category category);

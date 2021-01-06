@@ -12,39 +12,44 @@ import cn.sucrelt.sucreblog.util.PageResult;
 public interface CategoryService {
 
     /**
-     * 查询分类的分页数据
+     * 获取分类的分页数据
      *
-     * @param pageQueryUtil
+     * @param PageQueryUtil
      * @return
      */
-    PageResult getCategoryPage(PageQueryUtil pageQueryUtil);
-
+    PageResult getBlogCategoryPage(PageQueryUtil PageQueryUtil);
 
     /**
-     * 添加分类数据
+     * 获取总的分类数
+     *
+     * @return
+     */
+    int getTotalCategories();
+
+    /**
+     * 添加分类
      *
      * @param categoryName
      * @param categoryIcon
      * @return
      */
-    boolean addCategory(String categoryName, String categoryIcon);
-
+    Boolean addCategory(String categoryName, String categoryIcon);
 
     /**
-     * 更新分类数据
+     * 修改分类
      *
      * @param categoryId
      * @param categoryName
      * @param categoryIcon
      * @return
      */
-    boolean updateCategory(Integer categoryId, String categoryName, String categoryIcon);
+    Boolean updateCategory(Integer categoryId, String categoryName, String categoryIcon);
 
     /**
-     * 批量删除分类数据
+     * 批量删除分类
      *
      * @param ids
      * @return
      */
-    boolean deleteCategories(Integer[] ids);
+    Boolean deleteCategories(Integer[] ids);
 }
