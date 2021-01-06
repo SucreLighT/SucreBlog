@@ -109,6 +109,7 @@
 |    状态:hammer:    |     模块:books:     |                 日期 :calendar:                 |
 | :----------------: | :-----------------: | :---------------------------------------------: |
 | :heavy_check_mark: |  admin用户管理模块  | :two::zero::two::zero:-:one::two:-:three::zero: |
+| :heavy_check_mark: |  category分类模块   |  :two::zero::two::one:-:zero::one:-:zero::six:  |
 |        :x:         |  blog博客管理模块   |                                                 |
 |                    | comment评论管理模块 |                                                 |
 
