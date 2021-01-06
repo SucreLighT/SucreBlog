@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.sucrelt.sucreblog.dao.CategoryMapper">
-    <resultMap id="BaseResultMap" type="cn.sucrelt.sucreblog.entity.Category">
+    <resultMap id="BaseResultMap" type="cn.sucrelt.sucreblog.entity.BlogCategory">
         <id column="category_id" jdbcType="INTEGER" property="categoryId"/>
         <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
         <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon"/>
@@ -45,7 +45,7 @@
         where category_name = #{categoryName,jdbcType=VARCHAR} AND is_deleted = 0
     </select>
 
-    <insert id="insertSelective" parameterType="cn.sucrelt.sucreblog.entity.Category">
+    <insert id="insertSelective" parameterType="cn.sucrelt.sucreblog.entity.BlogCategory">
         insert into tb_blog_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="categoryId != null">
@@ -89,7 +89,7 @@
         </trim>
     </insert>
 
-    <update id="updateByCategoryIdSelective" parameterType="cn.sucrelt.sucreblog.entity.Category">
+    <update id="updateByCategoryIdSelective" parameterType="cn.sucrelt.sucreblog.entity.BlogCategory">
         update tb_blog_category
         <set>
             <if test="categoryName != null">

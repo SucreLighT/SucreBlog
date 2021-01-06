@@ -12,7 +12,7 @@ import java.util.Date;
  * @date: 2021/01/05
  * @time: 14:21
  */
-public class Category {
+public class BlogCategory {
     /**
      * 分类id
      */

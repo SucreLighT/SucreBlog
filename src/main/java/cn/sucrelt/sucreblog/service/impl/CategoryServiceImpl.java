@@ -1,7 +1,7 @@
 package cn.sucrelt.sucreblog.service.impl;
 
 import cn.sucrelt.sucreblog.dao.CategoryMapper;
-import cn.sucrelt.sucreblog.entity.Category;
+import cn.sucrelt.sucreblog.entity.BlogCategory;
 import cn.sucrelt.sucreblog.service.CategoryService;
 import cn.sucrelt.sucreblog.util.PageQueryUtil;
 import cn.sucrelt.sucreblog.util.PageResult;
@@ -27,9 +27,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public PageResult getBlogCategoryPage(PageQueryUtil PageQueryUtil) {
-        List<Category> categoryList = categoryMapper.getCategoryList(PageQueryUtil);
+        List<BlogCategory> blogCategoryList = categoryMapper.getCategoryList(PageQueryUtil);
         int total = categoryMapper.getTotalCategories(PageQueryUtil);
-        PageResult pageResult = new PageResult(categoryList, total, PageQueryUtil.getLimit(), PageQueryUtil.getPage());
+        PageResult pageResult = new PageResult(blogCategoryList, total, PageQueryUtil.getLimit(), PageQueryUtil.getPage());
         return pageResult;
     }
 
@@ -40,12 +40,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Boolean addCategory(String categoryName, String categoryIcon) {
-        Category tempCategory = categoryMapper.selectByCategoryName(categoryName);
-        if (tempCategory == null) {
-            Category newCategory = new Category();
-            newCategory.setCategoryName(categoryName);
-            newCategory.setCategoryIcon(categoryIcon);
-            return categoryMapper.insertSelective(newCategory) > 0;
+        BlogCategory tempBlogCategory = categoryMapper.selectByCategoryName(categoryName);
+        if (tempBlogCategory == null) {
+            BlogCategory newBlogCategory = new BlogCategory();
+            newBlogCategory.setCategoryName(categoryName);
+            newBlogCategory.setCategoryIcon(categoryIcon);
+            return categoryMapper.insertSelective(newBlogCategory) > 0;
         }
         return false;
     }
@@ -53,13 +53,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Boolean updateCategory(Integer categoryId, String categoryName, String categoryIcon) {
-        Category category = categoryMapper.selectByCategoryId(categoryId);
-        if (category != null) {
-            category.setCategoryIcon(categoryIcon);
-            category.setCategoryName(categoryName);
+        BlogCategory blogCategory = categoryMapper.selectByCategoryId(categoryId);
+        if (blogCategory != null) {
+            blogCategory.setCategoryIcon(categoryIcon);
+            blogCategory.setCategoryName(categoryName);
             //更新blog实体中的分类属性
             // blogMapper.updateBlogCategorys(categoryName, blogCategory.getCategoryId(), new Integer[]{categoryId});
-            return categoryMapper.updateByCategoryIdSelective(category) > 0;
+            return categoryMapper.updateByCategoryIdSelective(blogCategory) > 0;
         }
         return false;
     }

@@ -1,6 +1,6 @@
 package cn.sucrelt.sucreblog.dao;
 
-import cn.sucrelt.sucreblog.entity.Category;
+import cn.sucrelt.sucreblog.entity.BlogCategory;
 import cn.sucrelt.sucreblog.util.PageQueryUtil;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface CategoryMapper {
      * @param PageQueryUtil
      * @return
      */
-    List<Category> getCategoryList(PageQueryUtil PageQueryUtil);
+    List<BlogCategory> getCategoryList(PageQueryUtil PageQueryUtil);
 
     /**
      * 获取所有的分类数
@@ -34,7 +34,7 @@ public interface CategoryMapper {
      * @param categoryId
      * @return
      */
-    Category selectByCategoryId(Integer categoryId);
+    BlogCategory selectByCategoryId(Integer categoryId);
 
     /**
      * 根据分类名查询分类对象
@@ -42,23 +42,23 @@ public interface CategoryMapper {
      * @param categoryName
      * @return
      */
-    Category selectByCategoryName(String categoryName);
+    BlogCategory selectByCategoryName(String categoryName);
 
     /**
      * 选择性插入分类数据
      *
-     * @param record
+     * @param blogCategory
      * @return
      */
-    int insertSelective(Category category);
+    int insertSelective(BlogCategory blogCategory);
 
     /**
      * 根据分类id选择更新分类数据
      *
-     * @param record
+     * @param blogCategory
      * @return
      */
-    int updateByCategoryIdSelective(Category category);
+    int updateByCategoryIdSelective(BlogCategory blogCategory);
 
     /**
      * 批量删除分类数据
