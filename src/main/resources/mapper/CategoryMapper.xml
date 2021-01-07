@@ -15,38 +15,38 @@
     </sql>
 
     <select id="getCategoryList" parameterType="Map" resultMap="BaseResultMap">
-        select
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_blog_category
-        where is_deleted=0
-        order by category_rank desc,create_time desc
+        FROM tb_blog_category
+        WHERE is_deleted=0
+        ORDER BY  category_rank DESC,create_time DESC
         <if test="start!=null and limit!=null">
-            limit #{start},#{limit}
+            LIMIT #{start},#{limit}
         </if>
     </select>
 
     <select id="getTotalCategories" parameterType="Map" resultType="int">
-        select count(*)
-        from tb_blog_category
-        where is_deleted = 0
+        SELECT count(*)
+        FROM tb_blog_category
+        WHERE is_deleted = 0
     </select>
 
     <select id="selectByCategoryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_blog_category
-        where category_id = #{categoryId,jdbcType=INTEGER} AND is_deleted = 0
+        FROM tb_blog_category
+        WHERE category_id = #{categoryId,jdbcType=INTEGER} AND is_deleted = 0
     </select>
 
     <select id="selectByCategoryName" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_blog_category
-        where category_name = #{categoryName,jdbcType=VARCHAR} AND is_deleted = 0
+        FROM tb_blog_category
+        WHERE category_name = #{categoryName,jdbcType=VARCHAR} AND is_deleted = 0
     </select>
 
     <insert id="insertSelective" parameterType="cn.sucrelt.sucreblog.entity.BlogCategory">
-        insert into tb_blog_category
+        INSERT INTO tb_blog_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="categoryId != null">
                 category_id,
@@ -90,7 +90,7 @@
     </insert>
 
     <update id="updateByCategoryIdSelective" parameterType="cn.sucrelt.sucreblog.entity.BlogCategory">
-        update tb_blog_category
+        UPDATE tb_blog_category
         <set>
             <if test="categoryName != null">
                 category_name = #{categoryName,jdbcType=VARCHAR},
@@ -108,12 +108,12 @@
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where category_id = #{categoryId,jdbcType=INTEGER}
+        WHERE category_id = #{categoryId,jdbcType=INTEGER}
     </update>
 
     <update id="deleteCategories">
-        update tb_blog_category
-        set is_deleted=1 where category_id in
+        UPDATE tb_blog_category
+        SET is_deleted=1 WHERE category_id IN
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
