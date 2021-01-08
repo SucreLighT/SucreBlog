@@ -1,3 +1,5 @@
+# TODO：待完善
+
 # 前言
 
 基于SpringBoot搭建的个人博客网站项目。
@@ -8,7 +10,7 @@
 
 + 整体功能如下图：
 
-  :scroll: **TODO：**此处一个思维导图（参考艿艿的商城项目）
+  :scroll: **TODO：** 此处一个思维导图（参考艿艿的商城项目）
 
 
 
@@ -32,13 +34,13 @@
 
 ## 项目结构
 
-| 模块  |                      功能                      |
-| :---: | :--------------------------------------------: |
-| admin | 用户管理，包括登录、修改用户名和密码、登出等。 |
-|       |                                                |
-|       |                                                |
-|       |                                                |
-|       |                                                |
+|   模块   |                             功能                             |
+| :------: | :----------------------------------------------------------: |
+|  admin   |        用户管理，包括登录、修改用户名和密码、登出等。        |
+| category |       分类模块，用于设置博客的分类，进行分类的增删改。       |
+|   tag    | 标签模块，用于设置博客的标签，进行标签的增删改。<br />**标签与分类的区别：**标签类似于关键字，跟博客是多对多的关系，相较于分类与博客的一对多关系更为复杂。 |
+|          |                                                              |
+|          |                                                              |
 
 ------
 
@@ -100,7 +102,8 @@
 
 + 数据库建立及环境搭建
 + [用户管理模块](https://github.com/tangtangsama/SucreBlog/blob/master/docs/admin.md)
-+ 
++ [分类模块](https://github.com/tangtangsama/SucreBlog/blob/master/docs/category.md)
++ [标签模块](https://github.com/tangtangsama/SucreBlog/blob/master/docs/tag.md)
 
 
 
@@ -110,6 +113,7 @@
 | :----------------: | :-----------------: | :---------------------------------------------: |
 | :heavy_check_mark: |  admin用户管理模块  | :two::zero::two::zero:-:one::two:-:three::zero: |
 | :heavy_check_mark: |  category分类模块   |  :two::zero::two::one:-:zero::one:-:zero::six:  |
+| :heavy_check_mark: |     tag标签模块     | :two::zero::two::one:-:zero::one:-:zero::seven: |
 |        :x:         |  blog博客管理模块   |                                                 |
 |                    | comment评论管理模块 |                                                 |
 
@@ -117,4 +121,5 @@
 
 # 其它
 
-+ [开发过程问题](https://github.com/tangtangsama/SucreBlog)
++ [开发过程问题](https://github.com/tangtangsama/SucreBlog/blob/master/docs/problems.md)
+
