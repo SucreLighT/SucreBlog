@@ -1,11 +1,12 @@
 package cn.sucrelt.sucreblog.config;
 
 import cn.sucrelt.sucreblog.interceptor.AdminLoginInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.annotation.Resource;
 
 /**
  * @description: 拦截器配置类
@@ -16,10 +17,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class AdminLoginWebMvcConfigurer implements WebMvcConfigurer {
 
-    @Autowired
+    @Resource
     private AdminLoginInterceptor adminLoginInterceptor;
 
 
+    /**
+     * 设置前端拦截路径
+     *
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminLoginInterceptor).
@@ -29,6 +35,11 @@ public class AdminLoginWebMvcConfigurer implements WebMvcConfigurer {
                 excludePathPatterns("/admin/plugins/**");
     }
 
+    /**
+     * 设置文件上传和拦截的路径
+     *
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**").
