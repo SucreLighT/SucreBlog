@@ -51,4 +51,11 @@ public interface BlogTagMapper {
      * @return
      */
     int deleteTags(Integer[] ids);
+
+    /**
+     * 添加博客时，插入该博客的所有新增标签
+     *
+     * @param tagListForInsert
+     */
+    int insertBlogTags(List<BlogTag> tagListForInsert);
 }

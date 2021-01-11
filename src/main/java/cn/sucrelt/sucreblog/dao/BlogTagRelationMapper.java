@@ -1,5 +1,7 @@
 package cn.sucrelt.sucreblog.dao;
 
+import cn.sucrelt.sucreblog.entity.BlogTagRelation;
+
 import java.util.List;
 
 /**
@@ -17,4 +19,12 @@ public interface BlogTagRelationMapper {
      * @return
      */
     List<Long> selectDistinctTagIds(Integer[] tagIds);
+
+    /**
+     * 批量插入博客和多个标签的关系数据
+     *
+     * @param blogTagRelations
+     * @return
+     */
+    int insertRelations(@Param("relationList") List<BlogTagRelation> blogTagRelations);
 }
