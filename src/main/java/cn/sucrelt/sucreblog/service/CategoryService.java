@@ -1,7 +1,10 @@
 package cn.sucrelt.sucreblog.service;
 
+import cn.sucrelt.sucreblog.entity.BlogCategory;
 import cn.sucrelt.sucreblog.util.PageQueryUtil;
 import cn.sucrelt.sucreblog.util.PageResult;
+
+import java.util.List;
 
 /**
  * @description:
@@ -52,4 +55,12 @@ public interface CategoryService {
      * @return
      */
     Boolean deleteCategories(Integer[] ids);
+
+    /**
+     * 获取所有的分类
+     *
+     * @return
+     */
+    List<BlogCategory> getAllCategories();
+
 }
