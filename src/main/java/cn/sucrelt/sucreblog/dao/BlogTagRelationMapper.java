@@ -1,6 +1,7 @@
 package cn.sucrelt.sucreblog.dao;
 
 import cn.sucrelt.sucreblog.entity.BlogTagRelation;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
