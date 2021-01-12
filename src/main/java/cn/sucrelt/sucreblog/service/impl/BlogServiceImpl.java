@@ -3,12 +3,13 @@ package cn.sucrelt.sucreblog.service.impl;
 import cn.sucrelt.sucreblog.dao.BlogMapper;
 import cn.sucrelt.sucreblog.dao.BlogTagMapper;
 import cn.sucrelt.sucreblog.dao.BlogTagRelationMapper;
-import cn.sucrelt.sucreblog.dao.CategoryMapper;
+import cn.sucrelt.sucreblog.dao.BlogCategoryMapper;
 import cn.sucrelt.sucreblog.entity.Blog;
 import cn.sucrelt.sucreblog.entity.BlogCategory;
 import cn.sucrelt.sucreblog.entity.BlogTag;
 import cn.sucrelt.sucreblog.entity.BlogTagRelation;
 import cn.sucrelt.sucreblog.service.BlogService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -22,13 +23,14 @@ import java.util.List;
  * @date: 2021/01/11
  * @time: 16:41
  */
+@Service
 public class BlogServiceImpl implements BlogService {
 
     @Resource
     private BlogMapper blogMapper;
 
     @Resource
-    private CategoryMapper categoryMapper;
+    private BlogCategoryMapper blogCategoryMapper;
 
     @Resource
     private BlogTagMapper blogTagMapper;
@@ -40,7 +42,10 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     public String saveBlog(Blog blog) {
         // 设置博客分类
-        BlogCategory blogCategory = categoryMapper.selectByCategoryId(blog.getBlogCategoryId());
+        System.out.println(blog.toString());
+        BlogCategory blogCategory = blogCategoryMapper.selectByCategoryId(blog.getBlogCategoryId());
+        System.out.println(blogCategory);
+
         if (blogCategory == null) {
             blog.setBlogCategoryId(0);
             blog.setBlogCategoryName("默认分类");
@@ -78,8 +83,14 @@ public class BlogServiceImpl implements BlogService {
             if (!CollectionUtils.isEmpty(tagListForInsert)) {
                 blogTagMapper.insertBlogTags(tagListForInsert);
             }
+
+            System.out.println(blogCategory);
+            if (blogCategory != null) {
+                System.out.println(blogCategory.getCategoryId() + ":" + blogCategory.getCategoryName());
+            }
+
             // 更新博客所属分类，修改分类排序值，上述已将排序值加一
-            categoryMapper.updateByCategoryIdSelective(blogCategory);
+            blogCategoryMapper.updateByCategoryIdSelective(blogCategory);
 
             // 将新增博客和标签的关系数据插入到中间表中
             List<BlogTagRelation> blogTagRelations = new ArrayList<>();

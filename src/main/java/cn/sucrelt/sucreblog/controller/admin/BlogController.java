@@ -3,14 +3,12 @@ package cn.sucrelt.sucreblog.controller.admin;
 import cn.sucrelt.sucreblog.config.ConstantsConfig;
 import cn.sucrelt.sucreblog.entity.Blog;
 import cn.sucrelt.sucreblog.service.BlogService;
+import cn.sucrelt.sucreblog.service.CategoryService;
 import cn.sucrelt.sucreblog.util.MyBlogUtils;
 import cn.sucrelt.sucreblog.util.Result;
 import cn.sucrelt.sucreblog.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -40,12 +38,32 @@ public class BlogController {
     @Resource
     private BlogService blogService;
 
+    @Resource
+    private CategoryService categoryService;
+
+
+    /**
+     * GET方式请求博客添加界面
+     *
+     * @param request
+     * @return
+     */
     @GetMapping("/blogs/edit")
     public String edit(HttpServletRequest request) {
         request.setAttribute("path", "edit");
+        request.setAttribute("categories", categoryService.getAllCategories());
         return "admin/edit";
     }
 
+    /**
+     * 上传博客图片文件
+     *
+     * @param request
+     * @param response
+     * @param file
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     @PostMapping("/blogs/md/uploadfile")
     public void uploadFileByEditorMd(HttpServletRequest request, HttpServletResponse response,
                                      @RequestParam(name = "editormd-image-file", required = true) MultipartFile file) throws IOException, URISyntaxException {
@@ -81,6 +99,21 @@ public class BlogController {
         }
     }
 
+    /**
+     * 添加一篇博客
+     *
+     * @param blogTitle
+     * @param blogSubUrl
+     * @param blogCategoryId
+     * @param blogTags
+     * @param blogContent
+     * @param blgCoverImage
+     * @param blogStatus
+     * @param enableComment
+     * @return
+     */
+    @PostMapping("/blogs/save")
+    @ResponseBody
     public Result addBlog(@RequestParam("blogTitle") String blogTitle,
                           @RequestParam(name = "blogSubUrl", required = false) String blogSubUrl,
                           @RequestParam("blogCategoryId") Integer blogCategoryId,
@@ -88,7 +121,7 @@ public class BlogController {
                           @RequestParam("blogContent") String blogContent,
                           @RequestParam("blogCoverImage") String blgCoverImage,
                           @RequestParam("blogStatus") Byte blogStatus,
-                          @RequestParam("enableComent") Byte enableComment) {
+                          @RequestParam("enableComment") Byte enableComment) {
         if (blogTitle.isEmpty()) {
             return ResultGenerator.generateFailResult("请输入文章标题！");
         }
@@ -130,6 +163,5 @@ public class BlogController {
         } else {
             return ResultGenerator.generateFailResult(saveBlogResult);
         }
-
     }
 }
