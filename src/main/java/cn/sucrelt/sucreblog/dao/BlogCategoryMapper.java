@@ -11,7 +11,7 @@ import java.util.List;
  * @date: 2020/12/31
  * @time: 14:14
  */
-public interface CategoryMapper {
+public interface BlogCategoryMapper {
     /**
      * 获取分类的分页数据
      *
