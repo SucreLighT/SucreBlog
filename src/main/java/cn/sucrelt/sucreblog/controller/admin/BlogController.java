@@ -75,7 +75,7 @@ public class BlogController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
         Random r = new Random();
         StringBuilder tempName = new StringBuilder();
-        tempName.append(simpleDateFormat.format(new Date())).append(r.nextInt()).append(suffixName);
+        tempName.append(simpleDateFormat.format(new Date())).append(r.nextInt(100)).append(suffixName);
         String newFileName = tempName.toString();
 
         // 文件上传位置
