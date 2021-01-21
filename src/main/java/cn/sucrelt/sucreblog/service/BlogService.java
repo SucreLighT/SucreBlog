@@ -16,4 +16,6 @@ public interface BlogService {
      * @return
      */
     String saveBlog(Blog blog);
+
+    String updateBlog(Blog blog);
 }
